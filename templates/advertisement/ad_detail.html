@@ -1,0 +1,44 @@
+
+{% extends 'flatpages/default.html' %}
+
+
+{% block title %}
+Post
+{% endblock title %}
+
+
+{% block content %}
+
+
+
+<h1>{{ ad_detail.title_ad }}</h1>
+
+<style>
+
+.shadowbox {
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid #333;
+  box-shadow: 8px 8px 5px #444;
+  padding: 8px 12px;
+  background-image: linear-gradient(180deg, #fff, #ddd 40%, #ccc);
+}
+
+
+</style>
+        <div class="shadowbox">
+            <p></p>
+                <table align="center">
+                    <tr><td align="left">{{ ad_detail.text_ad }}</td></tr>
+                    <tr><td align="right"> Дата публикации статьи: {{ ad_detail.date_time | date:'d M Y' }}</td></tr>
+                    <tr>
+                        <td align="right"> Категория:</td>
+                        <td> {{ ad_detail.category }} </td>
+                    </tr>
+
+                </table>
+            <p></p>
+        </div>
+
+
+{% endblock content %}

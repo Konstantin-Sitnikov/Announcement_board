@@ -52,7 +52,7 @@ td {
 
                 {% for ad in ad_list %}
                 <tr>
-                    <td>{{ ad.title_ad }}</td>
+                    <td><a href="{% url 'ad_detail' ad.pk %}">{{ ad.title_ad }}</td>
                     <td>{{ ad.user_id }}</td>
                     <td>{{ ad.date_time | date:'d M Y' }}</td>
                     <td>{{ ad.category}}</td>
