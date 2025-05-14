@@ -1,7 +1,6 @@
 
 {% extends 'flatpages/default.html' %}
 
-
 {% block title %}
 Post
 {% endblock title %}
@@ -29,7 +28,7 @@ Post
         <div class="shadowbox">
             <p></p>
                 <table align="center">
-                    <tr><td align="left">{{ ad_detail.text_ad }}</td></tr>
+                    <tr><td align="left">{{ ad_detail.text_ad | safe }}</td></tr>
                     <tr><td align="right"> Дата публикации статьи: {{ ad_detail.date_time | date:'d M Y' }}</td></tr>
                     <tr>
                         <td align="right"> Категория:</td>
