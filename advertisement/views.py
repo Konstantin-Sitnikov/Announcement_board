@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView, CreateView
-from .models import Advertisement
+from .models import Advertisement, Feedback
 from .forms import CreationAd
-
+from .filters import FeedbackFilter
 
 class AdvertisementList(ListView):
     model = Advertisement
@@ -28,3 +28,22 @@ class AdCreation(CreateView):
         ad.user_id = user
         return super().form_valid(form)
 
+
+
+
+
+class PersonalAccount(ListView):
+    ordering = 'date_time'
+    template_name = 'advertisement/personal_list.html'
+    context_object_name = 'personal_list'
+
+    def get_queryset(self):
+        queryset = Feedback.objects.filter(ad_id__user_id=self.request.user)
+        self.filterset = FeedbackFilter(self.request.GET, queryset)
+        return self.filterset.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['filterset'] = self.filterset
+        return context

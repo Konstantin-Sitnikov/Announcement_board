@@ -8,6 +8,14 @@
 
 {% block content %}
 
+        <form action="" method="get">
+            {{ filterset.form.as_table }}
+
+            <input type="submit" value="Найти" />
+        </form>
+
+
+
 <style>
 
     .shadowbox {
@@ -38,25 +46,21 @@ td {
 </style>
 
 
-{% if ad_list %}
+{% if personal_list %}
             <table border="3" cellpadding="4" cellspacing="1" width="100%">
 
                 <tr>
-                    <td align="left" width="10%">Заголовок</td>
+
                     <td align="left" width="10%">Автор</td>
-                    <td align="left" width="10%">Дата</td>
-                    <td align="left" width="10%">Категория</td>
                     <td align="left" width="60%">Статья</td>
 
                 </tr>
 
-                {% for ad in ad_list %}
+                {% for ad in personal_list %}
                 <tr>
-                    <td><a href="{% url 'ad_detail' ad.pk %}"> {{ ad.title_ad }} </a></td>
+
                     <td>{{ ad.user_id }}</td>
-                    <td>{{ ad.date_time | date:'d M Y' }}</td>
-                    <td>{{ ad.category}}</td>
-                    <td>{{ ad.text_ad | truncatewords:20 | safe}}</td>
+                    <td>{{ ad.text_feedback }}</td>
 
                 </tr>
                 {% endfor %}
@@ -65,6 +69,10 @@ td {
         {% else %}
         <h2>Новостей нет!</h2>
         {% endif%}
+
+
+
+
 
 
 <div class="paginate">
@@ -92,13 +100,6 @@ td {
        {% endif %}
    {% endif %}
 </div>
-
-
-
-
-
-
-
 
 
 {% endblock content %}
