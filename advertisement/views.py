@@ -38,8 +38,9 @@ class PersonalAccount(ListView):
     context_object_name = 'personal_list'
 
     def get_queryset(self):
-        queryset = Feedback.objects.filter(ad_id__user_id=self.request.user)
-        self.filterset = FeedbackFilter(self.request.GET, queryset)
+        queryset_fedback = Feedback.objects.filter(ad_id__user_id=self.request.user)
+        queryset_ad = Advertisement.objects.filter(user_id=self.request.user)
+        self.filterset = FeedbackFilter(self.request.GET, queryset_ad=queryset_ad, queryset=queryset_fedback)
         return self.filterset.qs
 
     def get_context_data(self, **kwargs):
