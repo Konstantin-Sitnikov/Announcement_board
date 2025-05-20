@@ -1,5 +1,6 @@
 {% extends 'flatpages/default.html' %}
 
+{% load custom_tags %}
 
 {% block title %}
 Объявления
@@ -52,22 +53,48 @@ td {
                 <tr>
 
                     <td align="left" width="10%">Автор</td>
-                    <td align="left" width="60%">Статья</td>
+                    <td align="left" width="60%">Отклик</td>
 
                 </tr>
 
-                {% for ad in personal_list %}
+                {% for feedback in personal_list %}
                 <tr>
 
-                    <td>{{ ad.user_id }}</td>
-                    <td>{{ ad.text_feedback }}</td>
+                    <td>{{ feedback.user_id }}</td>
+                    <td>{{ feedback.text_feedback }}</td>
+                    <td>
+                        <form action="{% url 'delete_feedback' feedback.pk %}" method="post">
+                        {% csrf_token %}
+
+                        <input type="submit" value="Удалить">
+                        </form>
+                    </td>
+
+                    <td>
+                        {% if feedback.feedback_received %}
+                            <h2>Отклик принят</h2>
+                        {% else %}
+                            <form action="{% url 'take_feedback' feedback.pk %}" method="post">
+                            {% csrf_token %}
+
+                            <input type="submit" value="Принять">
+                            </form>
+                        {% endif%}
+                    </td>
+
+
 
                 </tr>
+
+
+
+
+
                 {% endfor %}
             </table>
 
         {% else %}
-        <h2>Новостей нет!</h2>
+        <h2>Откликов нет!</h2>
         {% endif%}
 
 
@@ -77,26 +104,22 @@ td {
 
 <div class="paginate">
 
-    {# Добавляем пагинацию на страницу #}
+    {% if page_obj.has_previous %}
 
-   {# Информация о предыдущих страницах #}
-   {% if page_obj.has_previous %}
-       <a href="?page=1">1</a>
+       <a href="?{% url_replace page=1 %}">1</a>
        {% if page_obj.previous_page_number != 1 %}
            ...
-           <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+           <a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
        {% endif %}
    {% endif %}
 
-   {# Информация о текущей странице #}
    {{ page_obj.number }}
 
-   {# Информация о следующих страницах #}
    {% if page_obj.has_next %}
-       <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+       <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
        {% if paginator.num_pages != page_obj.next_page_number %}
            ...
-           <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+           <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
        {% endif %}
    {% endif %}
 </div>

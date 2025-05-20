@@ -30,6 +30,7 @@ class Feedback(models.Model): # модель отклика
     ad_id = models.ForeignKey(Advertisement, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     text_feedback = models.CharField(max_length = 255)
+    feedback_received = models.BooleanField(default = False)
     date_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

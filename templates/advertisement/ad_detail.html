@@ -39,5 +39,57 @@ Post
             <p></p>
         </div>
 
+<div>
+
+        {% if feedbacks %}
+            <table border="3" cellpadding="4" cellspacing="1">
+                <tr>
+                    <td align="left">Автор</td>
+                    <td align="left">Текст отклика</td>
+                    <td align="left">Дата</td>
+
+                </tr>
+
+                {% for feedback in feedbacks%}
+                <tr>
+                    <td>{{ feedback.user_id }}</td>
+                    <td>{{ feedback.text_feedback }}</td>
+                    <td>{{ feedback.date_time | date:'d M Y' }}</td>
+
+                </tr>
+                {% endfor %}
+            </table>
+
+        {% else %}
+        <h2>Пока никто не откликнулся на ваше объявление!</h2>
+        {% endif%}
+
+</div>
+
+
+<div>
+    <p></p>
+    <p></p>
+
+    <form action="{% url 'create_feedback' ad_detail.pk %}" method="post">
+            {% csrf_token %}
+            <textarea name="text" style="width:250px;height:150px;"></textarea>
+            <input type="submit" value="Откликнутся на объявление">
+        </form>
+
+
+
+
+    <!--{% if author_ad %}
+        <h2>Вы не можете отставлять отклик на свое объявление</h2>
+    {% else %}
+        <form action="{% url 'create_feedback' ad_detail.pk %}" method="post">
+            {% csrf_token %}
+            <textarea name="text" style="width:250px;height:150px;"></textarea>
+            <input type="submit" value="Откликнутся на объявление">
+        </form>
+    {% endif%} -->
+
+</div>
 
 {% endblock content %}
