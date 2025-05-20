@@ -66,6 +66,7 @@ def create_feedback(request, pk):
     if request.method == "POST":
         feedback = Feedback(ad_id=Advertisement.objects.get(pk=pk), user_id=request.user, text_feedback=request.POST.get("text"))
         feedback.save()
+        print(feedback.ad_id.user_id.email)
         return redirect("ad_detail", pk)
 
 
