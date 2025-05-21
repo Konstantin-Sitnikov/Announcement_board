@@ -6,12 +6,12 @@ from celery import shared_task
 
 
 @shared_task()
-def send_message_feedback_created(user, title_ad, text_feedback, email):
+def send_message_feedback_created(user_name, title_ad, text_feedback, email):
     """Отправка сообщения о новом отклике к объявлению"""
     html_content = render_to_string(
-        'post_created_email.html',
+        'emails/send_message_feedback_created.html',
         {
-            'user': user,
+            'user_name': user_name,
             'title': title_ad,
             'text': text_feedback
             #'link': f'{SITE_URL}/{pk}'
@@ -19,18 +19,39 @@ def send_message_feedback_created(user, title_ad, text_feedback, email):
         }
     )
     msg = EmailMultiAlternatives(
-        subject='title',
+        subject='Новый отклик',
         body='',
         from_email=DEFAULT_FROM_EMAIL,
-        to=email
+        to=[email]
     )
 
-    pass
+    msg.attach_alternative(html_content, 'text/html')
+    msg.send()
 
 
 
 
 @shared_task()
-def send_message_feedback_accepted():
+def send_message_feedback_accepted(user_name, title_ad, email):
     """Отправка сообщения отклик принят"""
-    pass
+
+
+    html_content = render_to_string(
+        'emails/send_message_feedback_accepted.html',
+        {
+            'user_name': user_name,
+            'title': title_ad,
+
+            #'link': f'{SITE_URL}/{pk}'
+
+        }
+    )
+    msg = EmailMultiAlternatives(
+        subject='Ваш отклик принят',
+        body='',
+        from_email=DEFAULT_FROM_EMAIL,
+        to=[email]
+    )
+
+    msg.attach_alternative(html_content, 'text/html')
+    msg.send()

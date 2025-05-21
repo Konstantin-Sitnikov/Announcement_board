@@ -45,9 +45,10 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
 
-
-    'advertisement',
+    'advertisement.apps.AdvertisementConfig',
     'django_ckeditor_5',
+
+
 
 ]
 
@@ -100,7 +101,6 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
 ACCOUNT_LOGIN_METHODS = {'email'}
 
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
 ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
