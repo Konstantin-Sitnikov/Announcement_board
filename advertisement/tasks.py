@@ -35,7 +35,6 @@ def send_message_feedback_created(user_name, title_ad, text_feedback, email):
 def send_message_feedback_accepted(user_name, title_ad, email):
     """Отправка сообщения отклик принят"""
 
-
     html_content = render_to_string(
         'emails/send_message_feedback_accepted.html',
         {
@@ -51,6 +50,30 @@ def send_message_feedback_accepted(user_name, title_ad, email):
         body='',
         from_email=DEFAULT_FROM_EMAIL,
         to=[email]
+    )
+
+    msg.attach_alternative(html_content, 'text/html')
+    msg.send()
+
+@shared_task()
+def send_message_news_created(title_news, text_news,  email):
+    """Рассылка новостей пользователям которые подписались на рассылку"""
+    html_content = render_to_string(
+        'emails/send_message_news.html',
+        {
+            'title_news': title_news,
+            'text_news': text_news,
+
+
+            # 'link': f'{SITE_URL}/{pk}'
+
+        }
+    )
+    msg = EmailMultiAlternatives(
+        subject='"Важная" новость',
+        body='',
+        from_email=DEFAULT_FROM_EMAIL,
+        to=email
     )
 
     msg.attach_alternative(html_content, 'text/html')

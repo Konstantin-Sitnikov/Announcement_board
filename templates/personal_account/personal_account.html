@@ -9,6 +9,11 @@
 
 {% block content %}
 
+<button> <a href="/accounts/logout/"> Выйти </a></button>
+<button> <a href="/personal_account/subscribe"> Подписаться на новости </a></button>
+<button> <a href="/personal_account/unsubscribe"> Отписаться от новостей </a></button>
+
+
         <form action="" method="get">
             {{ filterset.form.as_table }}
 

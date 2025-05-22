@@ -41,3 +41,4 @@ class Feedback(models.Model): # модель отклика
 class News(models.Model): # модель новостей
     title_news = models.CharField(max_length=128)
     text_news = models.TextField()
+    date_time = models.DateTimeField(auto_now_add=True)

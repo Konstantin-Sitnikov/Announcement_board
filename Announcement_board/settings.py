@@ -47,6 +47,9 @@ INSTALLED_APPS = [
 
     'advertisement.apps.AdvertisementConfig',
     'django_ckeditor_5',
+    'personal_account'
+
+
 
 
 
@@ -89,20 +92,17 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/personal_account'
+
 
 
 
 SITE_ID = 1
-
-
-
+ACCOUNT_FORMS = {'signup': 'personal_account.forms.BasicSignupForm'}
 ACCOUNT_UNIQUE_EMAIL = True
-
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
 ACCOUNT_LOGIN_METHODS = {'email'}
-
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-
 ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
 
 
