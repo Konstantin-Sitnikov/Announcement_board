@@ -61,34 +61,31 @@ Post
             </table>
 
         {% else %}
-        <h2>Пока никто не откликнулся на ваше объявление!</h2>
+        <h4>Откликов нет!</h4>
         {% endif%}
 
 </div>
+
+<div>
+    {% if author_ad %}
+        <form action="{% url 'ad_update' ad_detail.pk %}"> <button>Изменить объявление</button> </form>
+    {% endif %}
+</div>
+
 
 
 <div>
     <p></p>
     <p></p>
 
-    <form action="{% url 'create_feedback' ad_detail.pk %}" method="post">
+
+    {% if not_author_ad %}
+            <form action="{% url 'create_feedback' ad_detail.pk %}" method="post">
             {% csrf_token %}
             <textarea name="text" style="width:250px;height:150px;"></textarea>
             <input type="submit" value="Откликнутся на объявление">
         </form>
-
-
-
-
-    <!--{% if author_ad %}
-        <h2>Вы не можете отставлять отклик на свое объявление</h2>
-    {% else %}
-        <form action="{% url 'create_feedback' ad_detail.pk %}" method="post">
-            {% csrf_token %}
-            <textarea name="text" style="width:250px;height:150px;"></textarea>
-            <input type="submit" value="Откликнутся на объявление">
-        </form>
-    {% endif%} -->
+    {% endif%}
 
 </div>
 

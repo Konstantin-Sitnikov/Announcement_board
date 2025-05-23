@@ -10,6 +10,7 @@ class PersonalAccount(ListView):
     ordering = 'date_time'
     template_name = 'personal_account/personal_account.html'
     context_object_name = 'personal_list'
+    paginate_by = 10
 
     def get_queryset(self):
         queryset_fedback = Feedback.objects.filter(ad_id__user_id=self.request.user)
@@ -20,6 +21,7 @@ class PersonalAccount(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filterset'] = self.filterset
+        context['current_user'] = self.request.user
         return context
 
 

@@ -8,10 +8,13 @@
 
 
 {% block content %}
+<h2>Добро пожаловать {{current_user}} в личный кабинет</h2>
+
 
 <button> <a href="/accounts/logout/"> Выйти </a></button>
 <button> <a href="/personal_account/subscribe"> Подписаться на новости </a></button>
 <button> <a href="/personal_account/unsubscribe"> Отписаться от новостей </a></button>
+
 
 
         <form action="" method="get">
