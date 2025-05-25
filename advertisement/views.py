@@ -13,7 +13,7 @@ class AdvertisementList(ListView):
     ordering = 'date_time'
     template_name = 'advertisement/ad_list.html'
     context_object_name = 'ad_list'
-    paginate_by = 10
+    paginate_by = 5
 
 
 class AdDetail(DetailView):
